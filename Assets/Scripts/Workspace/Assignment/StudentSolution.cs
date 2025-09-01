@@ -119,10 +119,10 @@ namespace Assignment
 
         public void AS01_RandomItemDrop(GameObject[] items)
         {
+            if (items == null || items.Length == 0) return; 
             int randomIndex = Random.Range(0, items.Length);
-
-            string itemName = items[randomIndex].name;
-
+            GameObject droppedItem = Instantiate(items[randomIndex]);
+            string itemName = droppedItem.name.Replace("(Clone)", "");
             Debug.Log("Got item: " + itemName);
         }
 
@@ -248,8 +248,8 @@ namespace Assignment
             float timer = 0f;
             while (timer < CountTime)
             {
-                timer += 0.1f;
-                yield return new WaitForSeconds(0.1f);
+                timer += Time.deltaTime;
+                yield return null;
                 Debug.Log($"timer : {timer.ToString("F2")}");
             }
             Debug.Log($"End timer : {CountTime.ToString("F2")}");
