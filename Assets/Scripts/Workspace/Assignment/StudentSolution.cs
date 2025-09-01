@@ -94,12 +94,23 @@ namespace Assignment
 
         public void LCT06_SizeOf2DArray(int[,] my2DArray)
         {
-            throw new System.NotImplementedException();
+            int row = my2DArray.GetLength(0);
+            int column = my2DArray.GetLength(1);
+            Debug.Log($"rows = {row}");
+            Debug.Log($"cols = {column}");
         }
 
         public void LCT07_SyntaxNestedLoop(int columns, int rows)
         {
-            throw new System.NotImplementedException();
+            for (int i = 0; i < rows; i++)
+            {
+                string row = "";
+                for (int j = 0; j < columns; j++)
+                {
+                    row += "*";
+                }
+                Debug.Log(row);
+            }
         }
 
         #endregion
@@ -108,82 +119,182 @@ namespace Assignment
 
         public void AS01_RandomItemDrop(GameObject[] items)
         {
-            throw new System.NotImplementedException();
+            int randomIndex = Random.Range(0, items.Length);
+
+            string itemName = items[randomIndex].name;
+
+            Debug.Log("Got item: " + itemName);
         }
 
         public void AS02_NestedLoopForCreate2DMap(GameObject[] floorTiles, int columns, int rows)
         {
-            throw new System.NotImplementedException();
+            for (int x = 0; x < columns; x++)
+            {
+                for (int y = 0; y < rows; y++)
+                {
+                    int randIndex = Random.Range(0, floorTiles.Length);
+                    GameObject tile = Instantiate(floorTiles[randIndex], new Vector2(x, y), transform.rotation);
+                    tile.name = $"[{x}:{y}]";
+                    Debug.Log(tile.name);
+                }
+            }
         }
 
         public void AS03_NestedLoopForMakingWallAround(GameObject wall, int columns, int rows)
         {
-            throw new System.NotImplementedException();
+            for (int x = 0; x < columns; x++)
+            {
+                for (int y = 0; y < rows; y++)
+                {
+                    if (x == 0 || x == columns - 1 || y == 0 || y == rows - 1)
+                    {
+                        GameObject w = Instantiate(wall, new Vector2(x, y), transform.rotation);
+                        w.name = $"[{x}:{y}]";
+                    }
+                }
+            }
         }
 
         public void AS04_AttackEnemy(int[] enemyHP, int damage, int target)
         {
-            throw new System.NotImplementedException();
+            enemyHP[0] = Mathf.Max(0, enemyHP[0] - damage);
+            Debug.Log($"FirstEnemy hp :{enemyHP[0]}");
+
+            int lastIndex = enemyHP.Length - 1;
+            enemyHP[lastIndex] = Mathf.Max(0, enemyHP[lastIndex] - damage);
+            Debug.Log($"LastEnemy hp :{enemyHP[lastIndex]}");
+
+            enemyHP[target] = Mathf.Max(0, enemyHP[target] - damage);
+            Debug.Log($"TargetEnemy {target} hp :{enemyHP[target]}");
         }
 
         public void AS05_DynamicIterationLoop(int n)
         {
-            throw new System.NotImplementedException();
+            for (int i = 0; i < n; i++)
+            {
+                Debug.Log(i);
+            }
         }
 
         public void AS06_WhileLoopAndArray(string[] ironManSuitNames)
         {
-            throw new System.NotImplementedException();
+            int i = 0;
+            while (i < ironManSuitNames.Length)
+            {
+                Debug.Log(ironManSuitNames[i]);
+                i++;
+            }
+
+            Debug.Log("===");
+
+            int j = 0;
+            while (j < ironManSuitNames.Length)
+            {
+                Debug.Log(ironManSuitNames[j]);
+                j += 2;
+            }
         }
 
         public void AS07_HealTargetAtIndex(int[] heroHPs, int heal, int targetIndex)
         {
-            throw new System.NotImplementedException();
+            heroHPs[0] += heal;
+            Debug.Log($"FirstHero hp :{heroHPs[0]}");
+
+            int lastIndex = heroHPs.Length - 1;
+            heroHPs[lastIndex] += heal;
+            Debug.Log($"LastHero hp :{heroHPs[lastIndex]}");
+
+            heroHPs[targetIndex] += heal;
+            Debug.Log($"TargetHero {targetIndex} hp :{heroHPs[targetIndex]}");
         }
 
         public void AS08_RandomPickingDialogue(string[] dialogues)
         {
-            throw new System.NotImplementedException();
+            int index = Random.Range(0, dialogues.Length);
+            Debug.Log(dialogues[index]);
         }
 
         public void AS09_MultiplicationTable(int n)
         {
-            throw new System.NotImplementedException();
+            for (int i = 1; i <= 12; i++)
+            {
+                Debug.Log($"{n}x{i}={n * i}");
+            }
         }
 
         public void AS10_FindSummationFromZeroToNUsingWhileLoop(int n)
         {
-            throw new System.NotImplementedException();
+            int i = 0, sum = 0;
+            while (i <= n)
+            {
+                sum += i;
+                i++;
+            }
+            Debug.Log($"ผลรวมของ n จาก 0 ถึง {n} คือ {sum}");
         }
 
         public void AS11_SpawnEnemies(int[] enemyHPs, GameObject enemyPrefab)
         {
-            throw new System.NotImplementedException();
+            for (int i = 0; i < enemyHPs.Length; i++)
+            {
+                Vector2 pos = new Vector2(i + 1, 0);
+                Instantiate(enemyPrefab, pos, transform.rotation);
+                Debug.Log($"new enemy at position x = {i + 1}");
+            }
         }
 
         public IEnumerator AS12_CountTime(float CountTime)
         {
-            throw new System.NotImplementedException();
+            float timer = 0f;
+            while (timer < CountTime)
+            {
+                timer += 0.1f;
+                yield return new WaitForSeconds(0.1f);
+                Debug.Log($"timer : {timer.ToString("F2")}");
+            }
+            Debug.Log($"End timer : {CountTime.ToString("F2")}");
         }
 
         public void AS13_SumOfNumbersInRow(int[,] matrix, int row)
         {
-            throw new System.NotImplementedException();
+            int sum = 0;
+            for (int i = 0; i < matrix.GetLength(1); i++)
+            {
+                sum += matrix[row, i];
+            }
+            Debug.Log(sum);
         }
 
         public void AS14_SumOfNumbersInColumn(int[,] matrix, int column)
         {
-            throw new System.NotImplementedException();
+            int sum = 0;
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                sum += matrix[i, column];
+            }
+            Debug.Log(sum);
         }
 
         public void AS15_MakeTheTriangle(int size)
         {
-            throw new System.NotImplementedException();
+            for (int i = 1; i <= size; i++)
+            {
+                string line = "";
+                for (int j = 0; j < i; j++)
+                {
+                    line += "*";
+                }
+                Debug.Log(line);
+            }
         }
 
         public void AS16_MultiplicationTableOf_2_3_and_4()
         {
-            throw new System.NotImplementedException();
+            for (int i = 1; i <= 12; i++)
+            {
+                string row = $"2 x {i} = {2 * i}\t3 x {i} = {3 * i}\t4 x {i} = {4 * i}";
+                Debug.Log(row);
+            }
         }
 
         #endregion
