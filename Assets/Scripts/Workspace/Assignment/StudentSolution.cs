@@ -303,7 +303,89 @@ namespace Assignment
 
         public void EX_01_TicTacToeGame_TurnPlay(string[,] board, string playerTurn, int row, int column)
         {
-            throw new System.NotImplementedException();
+            bool isEmpty = false;
+            if (row >= 0 && row < 3 && column >= 0 && column < 3)
+            {
+                string cellValue = board[row, column];
+                isEmpty = cellValue == "_" || cellValue == " ";
+            }
+
+            if (row < 0 || row > 2 || column < 0 || column > 2 || !isEmpty)
+            {
+                PrintBoard(board);
+                Debug.Log(">> Invalid move");
+                return;
+            }
+            board[row, column] = playerTurn;
+
+            if (CheckWin(board, playerTurn))
+            {
+                PrintBoard(board);
+                Debug.Log($">> {playerTurn} wins!");
+                return;
+            }
+
+            if (IsBoardFull(board))
+            {
+                PrintBoard(board);
+                Debug.Log(">> Draw");
+                return;
+            }
+
+            PrintBoard(board);
+            Debug.Log(">> Continue");
+        }
+
+        private bool CheckWin(string[,] board, string player)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (IsCellEqual(board[i, 0], player) && 
+                    IsCellEqual(board[i, 1], player) && 
+                    IsCellEqual(board[i, 2], player))
+                    return true;
+            }
+
+            for (int j = 0; j < 3; j++)
+            {
+                if (IsCellEqual(board[0, j], player) && 
+                    IsCellEqual(board[1, j], player) && 
+                    IsCellEqual(board[2, j], player))
+                    return true;
+            }
+
+            if (IsCellEqual(board[0, 0], player) && 
+                IsCellEqual(board[1, 1], player) && 
+                IsCellEqual(board[2, 2], player))
+                return true;
+
+            if (IsCellEqual(board[0, 2], player) && 
+                IsCellEqual(board[1, 1], player) && 
+                IsCellEqual(board[2, 0], player))
+                return true;
+
+            return false;
+        }
+
+        private bool IsCellEqual(string cellValue, string player)
+        {
+            return cellValue == player || 
+                   (player == "X" && cellValue == "X") || 
+                   (player == "O" && cellValue == "O");
+        }
+
+        private bool IsBoardFull(string[,] board)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    string cellValue = board[i, j];
+                    if (cellValue == "_" || cellValue == " ")
+                        return false;
+                }
+            }
+            return true;
         }
 
         private void PrintBoard(string[,] board)
